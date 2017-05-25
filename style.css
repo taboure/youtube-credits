@@ -1,0 +1,17 @@
+/*Marron #232525*/
+/*Jaune #e4c66d*/
+/*Orange #cc7832*/
+/*Rouge #BC3F3C*/
+/*Vert #6a8759*/
+/*Bleu #598dbb*/
+/*Violet #9876aa*/
+/*Blanc #a9b7c6*/
+
+#screen {
+    border: 1px solid white;
+    margin: auto;
+    height: 300px;
+    width: 600px;
+    font-size: 14px;
+    padding: 14px;
+}
