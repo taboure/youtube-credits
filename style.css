@@ -1,12 +1,3 @@
-/*Marron #232525*/
-/*Jaune #e4c66d*/
-/*Orange #cc7832*/
-/*Rouge #BC3F3C*/
-/*Vert #6a8759*/
-/*Bleu #598dbb*/
-/*Violet #9876aa*/
-/*Blanc #a9b7c6*/
-
 #screen {
     border: 1px solid white;
     margin: auto;
@@ -14,4 +5,26 @@
     width: 600px;
     font-size: 14px;
     padding: 14px;
+}
+
+.line-cursor{
+    opacity: 1;
+    -webkit-animation: blink 1s infinite;
+    -moz-animation: blink 1s infinite;
+    animation: blink 1s infinite;
+}
+@keyframes blink{
+    0% { opacity:1; }
+    50% { opacity:0; }
+    100% { opacity:1; }
+}
+@-webkit-keyframes blink{
+    0% { opacity:1; }
+    50% { opacity:0; }
+    100% { opacity:1; }
+}
+@-moz-keyframes blink{
+    0% { opacity:1; }
+    50% { opacity:0; }
+    100% { opacity:1; }
 }

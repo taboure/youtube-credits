@@ -6,13 +6,39 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-<pre id="screen">
-</pre>
+<pre id="screen"></pre>
 <script src="node_modules/jquery/dist/jquery.min.js"></script>
 <script src="js/tools.js"></script>
+<script src="js/writer.js"></script>
+<script src="js/line.js"></script>
 <script src="js/screen.js"></script>
 <script>
-    var screen = new Screen($('#screen'));
+    var myScreen = new Screen($('#screen'));
+
+    myScreen.on('initialization', function() {
+        setTimeout(function() {
+            myScreen.write(6, 'somethingnw  wefk jw wejklw fjlwe jlwj f wklfj', true);
+        }, 500);
+
+        setTimeout(function() {
+            myScreen.write(6, 'somethingnw  wefk jw wejklw fjlwe jlwj f wklfj', true);
+        }, 3000);
+
+        setTimeout(function() {
+            myScreen.write(2, 'somethingnw  wefk jw wejklw fjlwe jlwj f wklfj', false);
+        }, 6000);
+
+        setTimeout(function() {
+            myScreen.clear();
+        }, 4000);
+
+        setTimeout(function() {
+            myScreen.write(2, 'somethingnw  wefk jw wejklw fjlwe jlwj f wklfj', false);
+        }, 12000);
+
+    });
+
+    myScreen.start();
 </script>
 
 </body>
