@@ -12,33 +12,87 @@
 <script src="js/writer.js"></script>
 <script src="js/line.js"></script>
 <script src="js/screen.js"></script>
+<script src="js/scenario.js"></script>
 <script>
-    var myScreen = new Screen($('#screen'));
+var message = [
+//    ['    #    #    #    #    #    #    #    #    #    #    #    #    #    #    #'],
+    [' '],
+    [' '],
+    ['                              #^25                      #^25'],
+    ['                      #^25                              #^25'],
+    ['                      #^25                      ####    #^25'],
+    ['                      #^25       #^25   #     #   #    #   #^25'],
+    ['                      #^25       #^25    #   #    ###### '],
+    ['                      #^25       #^25     # #     #'],
+    ['                       ####   #^25      #       ####    #^25'],
+    [' '],
+    ['                         2017-06-05 10:00:00 PARIS'],
+    [' '],
+    ['                    https://www.twitch.tv/anthonykgross'],
+    [' '],
+    ['                           Symfony - Get Started'],
+    [' '],
+    [' '],
+    [' ']
+];
 
-    myScreen.on('initialization', function() {
-        setTimeout(function() {
-            myScreen.write(6, 'somethingnw  wefk jw wejklw fjlwe jlwj f wklfj', true);
-        }, 500);
-
-        setTimeout(function() {
-            myScreen.write(6, 'somethingnw  wefk jw wejklw fjlwe jlwj f wklfj', true);
-        }, 3000);
-
-        setTimeout(function() {
-            myScreen.write(2, 'somethingnw  wefk jw wejklw fjlwe jlwj f wklfj', false);
-        }, 6000);
-
-        setTimeout(function() {
-            myScreen.clear();
-        }, 4000);
-
-        setTimeout(function() {
-            myScreen.write(2, 'somethingnw  wefk jw wejklw fjlwe jlwj f wklfj', false);
-        }, 12000);
-
-    });
-
-    myScreen.start();
+console.log(message);
+    var scenario = new Scenario($('#screen'));
+    scenario.addScreenFunction(function(myScreen) {
+            scenario.addToTimeLine(100, function(){
+                myScreen.write(0, message[0][0], false);
+            });
+            scenario.addToTimeLine(100, function(){
+                myScreen.write(1, message[1][0], false);
+            });
+            scenario.addToTimeLine(3000, function(){
+                myScreen.write(2, message[2][0], false);
+            });
+            scenario.addToTimeLine(3000, function(){
+                myScreen.write(3, message[3][0], false);
+            });
+            scenario.addToTimeLine(4000, function(){
+                myScreen.write(4, message[4][0], false);
+            });
+            scenario.addToTimeLine(7000, function(){
+                myScreen.write(5, message[5][0], false);
+            });
+            scenario.addToTimeLine(6000, function(){
+                myScreen.write(6, message[6][0], false);
+            });
+            scenario.addToTimeLine(5000, function(){
+                myScreen.write(7, message[7][0], false);
+            });
+            scenario.addToTimeLine(6000, function(){
+                myScreen.write(8, message[8][0], false);
+            });
+            scenario.addToTimeLine(100, function(){
+                myScreen.write(9, message[9][0], false);
+            });
+            scenario.addToTimeLine(4000, function(){
+                myScreen.write(10, message[10][0], false);
+            });
+            scenario.addToTimeLine(100, function(){
+                myScreen.write(11, message[11][0], false);
+            });
+            scenario.addToTimeLine(3000, function(){
+                myScreen.write(12, message[12][0], false);
+            });
+            scenario.addToTimeLine(100, function(){
+                myScreen.write(13, message[13][0], false);
+            });
+            scenario.addToTimeLine(6000, function(){
+                myScreen.write(14, message[14][0], false);
+            });
+            scenario.addToTimeLine(100, function(){
+                myScreen.write(15, message[15][0], false);
+            });
+            scenario.addToTimeLine(100, function(){
+                myScreen.write(16, message[16][0], false);
+            });
+        }
+    )
+    .start();
 </script>
 
 </body>

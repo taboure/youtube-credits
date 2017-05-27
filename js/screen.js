@@ -1,7 +1,7 @@
 var Screen = function(elm, opts) {
-
-    var self = this;
-
+    /**
+     * @type {{initialization: Array}}
+     */
     this.events = {
         'initialization': []
     };
@@ -10,8 +10,7 @@ var Screen = function(elm, opts) {
      * Default options
      */
     this.options = {
-        nbLines:  12,
-        nbColumns: 50,
+        nbLines:  18,
         color: {
             brown: '#232525',
             yellow: '#e4c66d',
@@ -55,7 +54,7 @@ var Screen = function(elm, opts) {
         }
         this.draw();
 
-        var firstLine = this.getLine(0)
+        this.getLine(0)
             .setShowPrefix(true);
         this.cursorAt(0);
         this.drawLine(0);
@@ -114,12 +113,18 @@ var Screen = function(elm, opts) {
      * @param index
      * @param value
      * @param prefix
+     * @param skipAnimation
      * @returns {Screen}
      */
-    this.write = function(index, value, prefix) {
+    this.write = function(index, value, prefix, skipAnimation) {
         var line = this.lines[index];
         line.setContent(value)
             .setShowPrefix(prefix);
+
+        if (skipAnimation) {
+            line.skipAnimation();
+        }
+
         this.clearCursor();
 
         this.cursorAt(index);
@@ -131,6 +136,7 @@ var Screen = function(elm, opts) {
 
     /**
      * @param eventName
+     * @returns {Screen}
      */
     this.fireEvent = function (eventName) {
         var events = this.events[eventName];
@@ -138,14 +144,17 @@ var Screen = function(elm, opts) {
         for(var i = 0; i < events.length; i++) {
             this.events[eventName][i].apply(this, arguments);
         }
+        return this;
     };
 
     /**
      * @param eventName
      * @param func
+     * @returns {Screen}
      */
     this.on = function(eventName, func) {
         this.events[eventName].push(func);
+        return this;
     };
 
     /**
@@ -154,7 +163,6 @@ var Screen = function(elm, opts) {
     this.clear = function () {
         for (var i = 0; i < this.options.nbLines; i++) {
             var line = this.getLine(i);
-            line.setShowPrefix(false);
             line.clear();
         }
         this.clearCursor();
@@ -163,7 +171,6 @@ var Screen = function(elm, opts) {
         this.cursorAt(0);
 
         this.draw();
-
         return this;
     };
 
@@ -173,9 +180,8 @@ var Screen = function(elm, opts) {
     this.clearCursor = function() {
         for(var i = 0; i < this.cacheCursors.length; i++) {
             var index = this.cacheCursors[i];
-            var line = this.getLine(index)
+            this.getLine(index)
                 .setHasCursor(false);
-            this.setLine(index, line);
 
             this.drawLine(index);
         }
@@ -195,6 +201,13 @@ var Screen = function(elm, opts) {
 
         return this;
     };
+    /**a
+     * @returns {*}
+     */
+    this.getElm = function() {
+        return this.$elm;
+    };
 
     this.options = $.extend(true, this.options, opts);
+    return this;
 };

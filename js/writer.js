@@ -5,39 +5,53 @@ var Writer = function(sentence, $elm){
     this.threads = [];
 
     /**
-     *
+     * @type {{initialization: Array}}
+     */
+    this.events = {
+        'animationDone': [],
+        'animationCancelled': [],
+        'animationOnDoing': []
+    };
+
+    /**
+     * @returns {Array}
      */
     this.getPlanning = function() {
         var timeline = this.sentence.split(' ');
-        timeline.pop();
-
-
         var planning = [];
         var time = 0;
 
         for (var i = 0; i < timeline.length; i++) {
             var word = timeline[i];
-            var delay = this.getDelayFromWord(word);
+            var data = this.getDataFromWord(word);
 
-            if (delay > 0) {
-                word = '';
+            if (data.word === undefined) {
+                data.word  = ' ';
+
+                if (data.delay === undefined) {
+                    data.delay = 50;
+                }
             } else {
-                word += ' ';
-                delay = Math.random()*1000;
+                data.word  += ' ';
             }
 
+            if (data.delay === undefined) {
+                data.delay  = 1000;
+            }
+            data.delay = parseInt(data.delay);
+
             var timePerText = Math.floor(
-                delay/(word.length+1)
+                data.delay/(data.word.length+1)
             );
 
-            for (var j = 0; j < word.length; j++) {
-                var text = word[j];
+            for (var j = 0; j < data.word.length; j++) {
+                var text = data.word[j];
                 planning.push({
                     'text': text,
                     'time': time+timePerText*(j+1)
                 });
             }
-            time = Math.floor(time+delay);
+            time = Math.floor(time+data.delay);
         }
         return planning;
     };
@@ -46,47 +60,83 @@ var Writer = function(sentence, $elm){
      * @param word
      * @returns {*}
      */
-    this.getDelayFromWord = function(word) {
-        var matches = word.match(/[\\^(0-9)]{1,}/);
-        if (matches) {
-            delay = matches[0];
-            return parseInt(delay.substr(1));
-        }
-        return 0;
+    this.getDataFromWord = function(word) {
+        var matches = word.match(/([^\ \^]{1,})*(\^([0-9]{1,}))*/);
+        return {
+            'word': matches[1],
+            'delay':matches[3]
+        };
     };
     /**
-     *
+     * @returns {Writer}
      */
     this.start = function()
     {
         var planning = this.getPlanning();
 
         var e = this.$elm;
+        var $this = this;
         var text = '';
 
         for(var i = 0; i < planning.length; i++){
             var plan = planning[i];
+            var last = (i === planning.length-1);
 
             this.threads.push(
                 setTimeout(
-                    function(p) {
+                    function(p, last) {
                         text += p.text;
                         e.html(text);
+
+                        $this.fireEvent('animationOnDoing', text);
+
+                        if (last) {
+                            $this.fireEvent('animationDone');
+                        }
                     },
                     plan.time,
-                    plan
+                    plan,
+                    last
                 )
             );
         }
+        return this;
     };
 
     /**
-     *
+     * @returns {Writer}
      */
     this.clear = function() {
         for(var i = 0; i < this.threads; i++) {
             var thread = this.threads[i];
             clearTimeout(thread);
+            this.fireEvent('animationCancelled');
         }
-    }
+        return this;
+    };
+
+    /**
+     * @param eventName
+     * @returns {Writer}
+     */
+    this.fireEvent = function (eventName) {
+        var events = this.events[eventName];
+
+        for(var i = 0; i < events.length; i++) {
+            this.events[eventName][i].apply(this, arguments);
+        }
+        return this;
+    };
+
+    /**
+     * @param eventName
+     * @param func
+     * @returns {Writer}
+     */
+    this.on = function(eventName, func) {
+        this.events[eventName].push(func);
+        return this;
+    };
+
+    return this;
 }

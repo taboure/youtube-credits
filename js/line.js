@@ -1,6 +1,4 @@
 var Line = function(c) {
-    var self = this;
-
     this.prefix = 'anthonykgross@youtube: ';
     this.showPrefix = false;
 
@@ -8,6 +6,7 @@ var Line = function(c) {
 
     this.cursor = '|';
     this.hasCursor = false;
+    this.animationDone = false;
 
     this.$elm = null;
     this.writer = null;
@@ -33,8 +32,13 @@ var Line = function(c) {
             );
         }
 
+        var content = this.content;
+        if(!this.animationDone) {
+            content = '&nbsp;';
+        }
+
         div.append(
-            $('<span/>').addClass('line-content').html('&nbsp;')
+            $('<span/>').addClass('line-content').html(content)
         );
 
         if (this.hasCursor) {
@@ -43,7 +47,7 @@ var Line = function(c) {
             );
         }
         this.$elm = div;
-        return this.$elm ;
+        return this.$elm;
     };
 
     /**
@@ -74,20 +78,49 @@ var Line = function(c) {
     };
 
     /**
-     *
+     * @param $screen
+     * @param index
+     * @returns {Line}
      */
     this.write = function($screen, index) {
-        this.writer = new Writer(this.content, $screen.find('.line').eq(index).find('.line-content'));
-        this.writer.start();
+        if (!this.animationDone) {
+            var $elm = $screen.find('.line').eq(index);
+
+            this.writer = new Writer(this.content, $elm.find('.line-content'));
+            this.writer.start();
+
+            var $this = this;
+            this.writer.on('animationDone', function () {
+                $elm.scrollLeft(0);
+            });
+            this.writer.on('animationOnDoing', function (event, text) {
+                $this.animationDone = true;
+                $elm.scrollLeft(100000);
+                $this.content = text;
+            });
+        }
+        return this;
     };
 
     /**
-     *
+     * @returns {Line}
      */
     this.clear = function(){
         if (this.writer) {
             this.writer.clear();
         }
+        this.hasCursor = false;
+        this.showPrefix = false;
+        this.animationDone = false;
+        return this;
+    };
+
+    /**
+     * @returns {Line}
+     */
+    this.skipAnimation = function() {
+        this.animationDone = true;
+        return this;
     };
 
     this.init(c);
