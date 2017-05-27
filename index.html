@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Credit</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<pre id="screen"></pre>
+<script src="node_modules/jquery/dist/jquery.min.js"></script>
+<script src="js/tools.js"></script>
+<script src="js/writer.js"></script>
+<script src="js/line.js"></script>
+<script src="js/screen.js"></script>
+<script src="js/scenario.js"></script>
+<script>
+var message = [
+//    ['~   #    #    #    #    #    #    #    #    #    #    #    #    #    #    # ~'],
+    [' '],
+    [' '],
+    ['                               #                      #'],
+    ['                       #                              #'],
+    ['                       #                      ####    #'],
+    ['                       #       #   #     #   #    #   #'],
+    ['                       #       #    #   #    ###### '],
+    ['                       #       #     # #     #'],
+    ['                        ####   #      #       ####    #'],
+    [' '],
+    [' '],
+    [' '],
+    [' '],
+    ['                           2017-06-03 13:00:00 CEST'],
+    [' '],
+    ['                     https://www.twitch.tv/anthonykgross'],
+    [' '],
+    ['                            Symfony - Get Started'],
+    [' '],
+    [' '],
+    [' ']
+];
+
+console.log(message);
+    var scenario = new Scenario($('#screen'));
+    scenario.addScreenFunction(function(myScreen) {
+            scenario.addToTimeLine(100, function(){
+                scenario.popScreen(0, message[0][0], false);
+            });
+            scenario.addToTimeLine(100, function(){
+                scenario.popScreen(1, message[1][0], false);
+            });
+            scenario.addToTimeLine(300, function(){
+                scenario.popScreen(2, message[2][0], false);
+            });
+            scenario.addToTimeLine(500, function(){
+                scenario.popScreen(3, message[3][0], false);
+            });
+            scenario.addToTimeLine(200, function(){
+                scenario.popScreen(4, message[4][0], false);
+            });
+            scenario.addToTimeLine(400, function(){
+                scenario.popScreen(5, message[5][0], false);
+            });
+            scenario.addToTimeLine(100, function(){
+                scenario.popScreen(6, message[6][0], false);
+            });
+            scenario.addToTimeLine(250, function(){
+                scenario.popScreen(7, message[7][0], false);
+            });
+            scenario.addToTimeLine(250, function(){
+                scenario.popScreen(8, message[8][0], false);
+            });
+            scenario.addToTimeLine(100, function(){
+                myScreen.write(9, message[9][0], false);
+            });
+            scenario.addToTimeLine(100, function(){
+                myScreen.write(10, message[10][0], false);
+            });
+            scenario.addToTimeLine(100, function(){
+                myScreen.write(11, message[11][0], false);
+            });
+            scenario.addToTimeLine(100, function(){
+                myScreen.write(12, message[12][0], false);
+            });
+            scenario.addToTimeLine(4500, function(){
+                myScreen.write(13, message[13][0], false);
+            });
+            scenario.addToTimeLine(100, function(){
+                myScreen.write(14, message[14][0], false);
+            });
+            scenario.addToTimeLine(3000, function(){
+                myScreen.write(15, message[15][0], false);
+            });
+            scenario.addToTimeLine(100, function(){
+                myScreen.write(16, message[16][0], false);
+            });
+            scenario.addToTimeLine(6000, function(){
+                myScreen.write(17, message[17][0], false);
+            });
+            scenario.addToTimeLine(100, function(){
+                myScreen.write(18, message[18][0], false);
+            });
+            scenario.addToTimeLine(100, function(){
+                var line = 'Anthony K GROSS';
+                var prefix = '                             by ';
+
+                var elm = myScreen.getElm().find('.line .line-content').eq(18);
+                var text = '';
+                var char = ['#','$','!',')', '9', '~'];
+
+                for (var i = 0; i < line.length; i++) {
+                    for (var j = 0; j < char.length; j++) {
+                        setTimeout(
+                            function(j) {
+                                elm.html(prefix+text+char[j]);
+                            },
+                            i*200+j*25,
+                            j
+                        );
+                    }
+                    setTimeout(
+                        function(i) {
+                            text += line[i];
+                            elm.html(prefix+text);
+                        },
+                        i*200+char.length*25,
+                        i
+                    );
+                }
+            });
+        }
+    )
+    .start();
+</script>
+
+</body>
+</html>
