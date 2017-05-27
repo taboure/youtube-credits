@@ -10,7 +10,7 @@ var Screen = function(elm, opts) {
      * Default options
      */
     this.options = {
-        nbLines:  18,
+        nbLines:  21,
         color: {
             brown: '#232525',
             yellow: '#e4c66d',

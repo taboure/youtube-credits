@@ -48,6 +48,17 @@ var Scenario = function(elm, screenOpts) {
     };
 
     /**
+     * @param index
+     * @param value
+     * @param prefix
+     * @returns {Scenario}
+     */
+    this.popScreen = function(index, value, prefix) {
+        this.screen.write(index, value, prefix, true);
+        return this;
+    };
+
+    /**
      * @param duration
      * @param func
      * @returns {Scenario}
