@@ -7,10 +7,10 @@ body {
     margin: auto;
     height: 510px;
     width: 930px;
-    font-size: 20px;
+    font-size: 16px;
     padding: 15px;
+    background-color: black;
 }
-
 .line {
     overflow-x: hidden;
 }

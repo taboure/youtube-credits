@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Credit - Live 2017-07-15</title>
+    <link rel="stylesheet" href="../style.css">
+</head>
+<body>
+<pre id="screen"></pre>
+<script src="../node_modules/jquery/dist/jquery.min.js"></script>
+<script src="../build/credit.min.js"></script>
+
+<script>
+    var message = [
+        '        #                      #',
+        '#                              #',
+        '#                      ####    #',
+        '#       #   #     #   #    #   #',
+        '#       #    #   #    ###### ',
+        '#       #     # #     #',
+        ' ####   #      #       ####    #',
+        '2017-07-15 13:00:00 CEST',
+        'https://www.twitch.tv/anthonykgross',
+        'It works - Youtube & Doctrine'
+    ];
+
+    var background = [
+//        '~   #    #    #    #    #    #    #    #    #    #    #    #    #    #    #    #    #    #  ~',
+        '                                                                                             ',
+        '                                                                                             ',
+        '                                                                                             ',
+        '                                                                                             ',
+        '                                                                                             ',
+        '                                                                                             ',
+        '                                                                                             ',
+        '                                                                                             ',
+        '                                                                                             ',
+        '                                                                                             ',
+        '                                                                                             ',
+        '                                                                                             ',
+        '                                                                                             ',
+        '                                                                                             ',
+        '                                                                                             ',
+        '                                                                                             ',
+        '                                                                                             ',
+        '                                                                                             ',
+        '                                                                                             ',
+        '                                                                                             ',
+        '                                                                                             ',
+        '                                                                                             ',
+        '                                                                                             ',
+        '                                                                                             ',
+        '                                                                                             ',
+        '                                                                                             ',
+        '                                                                                             '
+    ];
+    var app = new App($('#screen'));
+    app.load(background)
+        .getScenario()
+        .add(
+            /**
+             * @param d ManagerScreen
+             */
+            function(d){
+                setTimeout(function() {
+                    d.replaceCharAt(5, message[0], 31);
+                }, 100);
+                setTimeout(function() {
+                    d.replaceCharAt(6, message[1], 31);
+                }, 200);
+                setTimeout(function() {
+                    d.replaceCharAt(7, message[2], 31);
+                }, 500);
+                setTimeout(function() {
+                    d.replaceCharAt(8, message[3], 31);
+                }, 1000);
+                setTimeout(function() {
+                    d.replaceCharAt(9, message[4], 31);
+                }, 1200);
+                setTimeout(function() {
+                    d.replaceCharAt(10, message[5], 31);
+                }, 1600);
+                setTimeout(function() {
+                    d.replaceCharAt(11, message[6], 31);
+                }, 1700);
+
+                setTimeout(function() {
+                    var k = new KeyboardEffect();
+                    k.type(message[7], 3000, function(data) {
+                        d.replaceCharAt(14, data, 34);
+                    });
+                }, 2300);
+
+                setTimeout(function() {
+                    d.replaceCharAt(14, ' ', 58);
+                    var k = new KeyboardEffect();
+                    k.type(message[8], 3000, function(data) {
+                        d.replaceCharAt(16, data, 29);
+                    });
+                }, 6000);
+
+                setTimeout(function() {
+                    d.replaceCharAt(16, ' ', 64);
+                    var k = new KeyboardEffect();
+                    k.type(message[9], 3000, function(data) {
+                        d.replaceCharAt(18, data, 32);
+                    });
+                }, 9000);
+
+                setTimeout(function() {
+                    var r = new RandomEffect();
+                    r.randomize('Anthony K GROSS', 2000, ['#','?','!','K', '9', 'j', '^', '*'], function(data) {
+                        d.replaceCharAt(20, data, 39);
+                    });
+                }, 13000);
+            }
+        )
+    ;
+    setTimeout(function() {
+        app.start();
+    }, 3000);
+</script>
+
+</body>
+</html>

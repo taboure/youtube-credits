@@ -20,5 +20,12 @@ var Tools = {
         var pad_char = typeof c !== 'undefined' ? c : '0';
         var pad = new Array(1 + p).join(pad_char);
         return (n+pad).slice(0, -n.length);
+    },
+    /**
+     * @param str
+     * @returns {ManagerScreen|XML|string|void}
+     */
+    strip_tag: function(str) {
+        return str.replace(/(<([^>]+)>)/ig,"");
     }
 }

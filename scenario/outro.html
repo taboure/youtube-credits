@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Credit - Outro</title>
+    <link rel="stylesheet" href="../style.css">
+</head>
+<body>
+<pre id="screen"></pre>
+<script src="../node_modules/jquery/dist/jquery.min.js"></script>
+<script src="../build/credit.min.js"></script>
+
+<script>
+    var background = [
+//        '~   #    #    #    #    #    #    #    #    #    #    #    #    #    #    #    #    #    #  ~',
+        '            +--------------------------------=====--------------------------------+          ',
+        '            |                               (  O  )                               |          ',
+        '            |   +----------------------------=====----------------------------+   |          ',
+        '            |   |                                                             |   |          ',
+        '            |   |                                                             |   |          ',
+        '            |   |                                                             |   |          ',
+        '            |   |                                                             |   |          ',
+        '            |   |                                                             |   |          ',
+        '            |   |                                                             |   |          ',
+        '            |   |                                                             |   |          ',
+        '            |   |                                                             |   |          ',
+        '            |   |                                                             |   |          ',
+        '            |   |                                                             |   |          ',
+        '        +-----+ |                                                             |   |          ',
+        '        |✓~~~~| |                                                             |   |          ',
+        '        |✓~~~~| |                                                             |   |          ',
+        '        |✓~~~ | |                                                             |   |          ',
+        '        +-----+ |                                                             |   |          ',
+        '            |   +-------------------------------------------------------------+   |          ',
+        '            |                               SAMSONG                               |          ',
+        '            +---------------------------------------------------------------------+          ',
+        '              \\    _                        |     |                                          ',
+        '              |   |_]      +---------------------------------------+       ___               ',
+        '              +---+       /                                        -\\     / | \\              ',
+        '                         /                  =======                  \\    |   |              ',
+        '                        +---------------------------------------------+   \\___/              ',
+        '                                                                                             '
+    ];
+
+    var url = 'curl -L http://profile.anthonykgross.fr';
+    var logo = [
+        '     LIKE             SUB             COMMENT',
+        '      -             +--|--+         ----------',
+        '     / |___        |       |       |          |',
+        '----|     _)       |       |       |          |',
+        '    |     _)      /         \\      |  .------- ',
+        '----~______)     \'-----#-----\'     |_/'
+    ];
+
+
+    var app = new App($('#screen'));
+    app.load(background);
+    app.getScenario()
+        .add(
+            /**
+             * @param d ManagerScreen
+             */
+            function (d) {
+                setTimeout(function () {
+                    d.replaceCharAt(3, logo[0], 24);
+                }, 1000);
+                setTimeout(function () {
+                    d.replaceCharAt(4, logo[1], 24);
+                }, 1500);
+                setTimeout(function () {
+                    d.replaceCharAt(5, logo[2], 24);
+                }, 1700);
+                setTimeout(function () {
+                    d.replaceCharAt(6, logo[3], 24);
+                }, 2300);
+                setTimeout(function () {
+                    d.replaceCharAt(7, logo[4], 24);
+                }, 3000);
+                setTimeout(function () {
+                    d.replaceCharAt(8, logo[5], 24);
+                }, 3100);
+                setTimeout(function () {
+                    var r = new RandomEffect();
+                    r.randomize(url, 3000, ['#', '?', '!', 'K', '9', 'j', '^', '*'], function (data) {
+                        d.replaceCharAt(17, data, 28);
+                    });
+                }, 4000);
+
+                setInterval(function () {
+                    setTimeout(function () {
+                        d.replaceCharAt(4, '   ', 29);
+                        d.replaceCharAt(5, '___', 29);
+                    }, 0);
+                    setTimeout(function () {
+                        d.replaceCharAt(4, ' - ', 29);
+                        d.replaceCharAt(5, '/ |', 29);
+                    }, 500);
+                    setTimeout(function () {
+                        d.replaceCharAt(4, '   ', 29);
+                        d.replaceCharAt(5, '___', 29);
+                    }, 1000);
+                    setTimeout(function () {
+                        d.replaceCharAt(4, ' - ', 29);
+                        d.replaceCharAt(5, '/ |', 29);
+                    }, 1500);
+
+                    setTimeout(function () {
+                        d.replaceCharAt(8, '--#', 46);
+                    }, 1500);
+                    setTimeout(function () {
+                        d.replaceCharAt(8, '-#-', 46);
+                    }, 2000);
+                    setTimeout(function () {
+                        d.replaceCharAt(8, '#--', 46);
+                    }, 2500);
+                    setTimeout(function () {
+                        d.replaceCharAt(8, '-#-', 46);
+                    }, 3000);
+
+                    setTimeout(function () {
+                        d.replaceCharAt(6, '°', 62);
+                    }, 3000);
+                    setTimeout(function () {
+                        d.replaceCharAt(6, '° °', 62);
+                    }, 3500);
+                    setTimeout(function () {
+                        d.replaceCharAt(6, '° ° °', 62);
+                    }, 4000);
+                    setTimeout(function () {
+                        d.replaceCharAt(6, '     ', 62);
+                    }, 4500);
+
+                    setTimeout(function () {
+                        d.replaceCharAt(3, '>', 27);
+                        d.replaceCharAt(3, '<', 34);
+                    }, 0);
+                    setTimeout(function () {
+                        d.replaceCharAt(3, ' ', 27);
+                        d.replaceCharAt(3, ' ', 34);
+                        d.replaceCharAt(3, '>', 44);
+                        d.replaceCharAt(3, '<', 50);
+                    }, 1500);
+                    setTimeout(function () {
+                        d.replaceCharAt(3, ' ', 44);
+                        d.replaceCharAt(3, ' ', 50);
+                        d.replaceCharAt(3, '>', 60);
+                        d.replaceCharAt(3, '<', 70);
+                    }, 3000);
+                    setTimeout(function () {
+                        d.replaceCharAt(3, ' ', 60);
+                        d.replaceCharAt(3, ' ', 70);
+                    }, 4500);
+
+                }, 10000);
+            }
+        )
+    ;
+
+    setTimeout(function() {
+        app.start();
+    }, 3000);
+</script>
+
+</body>
+</html>
